@@ -14,16 +14,14 @@ export default {
         }
       },
       getVoteIn5(number) {
-        const roundedVote = Math.ceil(number)
-        const voteIn5 = (roundedVote * 5) / 10
+        const voteIn5 = Math.ceil((number * 5) / 10)
         
         return voteIn5
-      }
-    },
-    computed: {
-      getStarVote() {
-        const vote = this.getVoteIn5
+      },
+      getEmptyStar(number) {
+        const empty = 5 - number
 
+        return empty
       }
     }
 };
@@ -48,8 +46,12 @@ export default {
       </div>
 
       <img class="language_flag" :src="`https://unpkg.com/language-icons/icons/${movie.original_language}.svg`">
-      <span class="vote">Vote: {{ getVoteIn5(movie.vote_average) }}</span>
-      <font-awesome-icon icon="fa-solid fa-star" />
+      <div class="votation">
+        <span class="vote">Vote: {{ getVoteIn5(movie.vote_average) }}</span>
+          <font-awesome-icon icon="fa-solid fa-star" v-for="n in getVoteIn5(movie.vote_average)"/>
+          <font-awesome-icon icon="fa-regular fa-star" v-for="n in getEmptyStar(getVoteIn5(movie.vote_average))"/>
+      </div>
+      
     </div>
     </div>
 </template>
