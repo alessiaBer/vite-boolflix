@@ -15,16 +15,24 @@ export default {
   methods: {
     performSearchMovie(url) {
       axios.get(url).then((response) => {
-        const join_query = store.query.split(' ').join("+");
-        const search_url = url + `${join_query}`;
-        console.log(search_url)
+        console.log(response)
       });
     },
-  },
+    },
+    computed: {
+      joinQuery() {
+        const join_query = store.query.split(" ").join("+");
+        const search_url = store.MOVIE_API + `${join_query}`;
+
+        return search_url;
+      },
+    },
+  
 };
 </script>
 <template>
-  <SearchBox @search-movie="performSearchMovie(store.MOVIE_API)" />
+  <SearchBox @search-movie="performSearchMovie(joinQuery)" />
+  <div class="card"></div>
 </template>
 
 <style lang="scss" scoped></style>
