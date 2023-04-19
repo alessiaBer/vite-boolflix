@@ -1,31 +1,30 @@
 <script>
-import SearchBox from './SearchBox.vue';
-import {store} from '../store';
-import axios from 'axios';
+import SearchBox from "./SearchBox.vue";
+import { store } from "../store";
+import axios from "axios";
 export default {
-    name: 'AppHeader',
+  name: "AppHeader",
   components: {
-    SearchBox
+    SearchBox,
   },
   data() {
     return {
-      store
-    }
+      store,
+    };
   },
   methods: {
     performSearchMovie(url) {
-      axios.
-      get(url)
-      .then(response => {
-        const search_url = url + `${store.query}`
+      axios.get(url).then((response) => {
+        const join_query = store.query.split(' ').join("+");
+        const search_url = url + `${join_query}`;
         console.log(search_url)
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
 <template>
-  <SearchBox @search-movie="performSearchMovie(store.MOVIE_API)"/>
+  <SearchBox @search-movie="performSearchMovie(store.MOVIE_API)" />
 </template>
 
 <style lang="scss" scoped></style>
