@@ -16,12 +16,12 @@ export default {
       <label class="input-group-text" for="search_input" @click="$emit('searchMovie')"
         >Search
       </label>
+      <!-- TODO add  @keyup="$emit('searchMovie')"-->
       <input
         type="text"
         class="form-control"
         id="search_input"
         placeholder="Search film.."
-        @keyup="$emit('searchMovie')"
         v-model="store.query"
       />
     </div>

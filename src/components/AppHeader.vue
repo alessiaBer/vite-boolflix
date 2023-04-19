@@ -15,7 +15,8 @@ export default {
   methods: {
     performSearchMovie(url) {
       axios.get(url).then((response) => {
-        console.log(response)
+        store.foundMoviesList = response.data.results
+        console.log(store.foundMoviesList)
       });
     },
     },
@@ -32,7 +33,6 @@ export default {
 </script>
 <template>
   <SearchBox @search-movie="performSearchMovie(joinQuery)" />
-  <div class="card"></div>
 </template>
 
 <style lang="scss" scoped></style>
