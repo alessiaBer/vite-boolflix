@@ -1,7 +1,6 @@
 <script>
 import SearchBox from "./SearchBox.vue";
 import { store } from "../store";
-import axios from "axios";
 export default {
   name: "AppHeader",
   components: {
@@ -12,27 +11,19 @@ export default {
       store,
     };
   },
-  methods: {
-    performSearchMovie(url) {
-      axios.get(url).then((response) => {
-        store.foundMoviesList = response.data.results
-        console.log(store.foundMoviesList)
-      });
-    },
-    },
-    computed: {
-      joinQuery() {
-        const join_query = store.query.split(" ").join("+");
-        const search_url = store.MOVIE_API + `${join_query}`;
+  methods: {},
+  computed: {
+    joinQuery() {
+      const join_query = store.query.split(" ").join("+");
+      let search_url = store.MOVIEDB_API + `${join_query}`;
 
-        return search_url;
-      },
+      return search_url;
     },
-  
+  }
 };
 </script>
 <template>
-  <SearchBox @search-movie="performSearchMovie(joinQuery)" />
+  <SearchBox @search-movie="store.performSearchMovie(joinQuery)" />
 </template>
 
 <style lang="scss" scoped></style>
