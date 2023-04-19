@@ -16,7 +16,7 @@ export default {
 <template>
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
-      <MovieItem :movies="store.resultsList"/>
+      <MovieItem :movies="store.resultsList" :img="store.MOVIEIMG_URL"/>
     </div>
   </div>
 </template>
