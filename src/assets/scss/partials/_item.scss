@@ -1,5 +1,11 @@
 @use './common' as *;
 
-.movie_poster {
+.card {
+    border: none;
+    border-radius: 0 !important;
+ .movie_poster {
     width: 100%;
+} 
 }
+
+
