@@ -1,13 +1,21 @@
 <script>
+import {store} from '../store'
+import CompleteProfile from './CompleteProfile.vue'
 export default {
   name: "MovieItem",
+  emits: ['showMoreInfo'],
   props: {
     movies: Array,
     img: String,
   },
+  components: {
+    CompleteProfile
+  },
   data() {
     return {
+      store,
       cardOnHover: false,
+      showCompleteProf: false
     };
   },
   methods: {
@@ -37,7 +45,9 @@ export default {
       class="card my-2"
       @mouseenter="movie.cardOnHover = true"
       @mouseleave="movie.cardOnHover = false"
-    >
+      @click="store.performGetInfo(movie.media_type, movie.id), showCompleteProf"
+      >
+      <!-- @click="$emit('showMoreInfo', movie.media_type, movie.id)" -->
       <div class="card-img">
         <!-- TODO immagine alternativa-->
         <img class="movie_poster" v-if="movie.poster_path === null" />
@@ -79,6 +89,8 @@ export default {
         <div class="overview" v-if="movie.overview">
           <p><strong>Overview:</strong> {{ movie.overview }}</p>
         </div>
+
+        <CompleteProfile v-if="showCompleteProf"/>
       </div>
     </div>
   </div>

@@ -10,9 +10,6 @@ export default {
         }
     },
     methods: {
-      ciao() {
-        console.log('ciao')
-      }
     }
 };
 </script>
@@ -22,6 +19,7 @@ export default {
     class="text-white glass-icon"
     v-if="!showSearchBox"
     @click="showSearchBox = true"/>
+    <!--TODO CLICK-OUTSIDE-->
     <div class="input-group" v-else>
       <label class="input-group-text border-0 bg-transparent" for="search_input" @click="$emit('searchMovie')"
         ><font-awesome-icon icon="fa-solid fa-magnifying-glass" class="text-white"/>

@@ -5,6 +5,15 @@ export const store = reactive({
   MOVIEDB_API:
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
   MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
+  GETINFO_API: "https://api.themoviedb.org/3/",
+/*  GET_CREDITS_API: 'https://api.themoviedb.org/3/movie/{movie-id}?api_key=<<api_key>>', 
+   GET_DETAILS_API: 'https://api.themoviedb.org/3/movie/{movie-id}/credits?api_key=<<api_key>>',
+  GET_TV_INFO: 'https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key=<<api_key>>'*/
+  apiKey: '?api_key=892e430dec807d965a1a1412c9102c0a&',
+  /* mediaType: '',
+  movieId: null, 
+  player: '', */
+  cast: [],
   query: '',
   resultsList: [],
   movieVote: null,
@@ -15,12 +24,23 @@ export const store = reactive({
     .then((response) => {
         //console.log(store.resultsList)
         this.resultsList = response.data.results;
-        this.movieLanguage = this.resultsList.movieVote;
-
+        /* this.mediaType = response.data.results.media_type
+        this.movieId = response.data.results.id; */
         this.loading = false;
     })
     .catch(err => {
         console.error(err)
     });
   },
+  performGetInfo(mediaType, movieId) {
+    const credits_url = `${this.GETINFO_API + mediaType }/${ movieId }/credits${this.apiKey}`
+    axios.get(credits_url)
+    .then((response) => {
+      this.cast = response.data.cast
+      console.log(this.cast)
+    })
+    .catch(err => {
+      console.error(err)
+  });
+  }
 });
