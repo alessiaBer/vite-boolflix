@@ -1,6 +1,10 @@
 <script>
 export default {
     name: 'CompleteProfile',
+    props: {
+        img: String,
+        movie: Object
+    }
 };
 </script>
 <template>
@@ -8,3 +12,5 @@ export default {
 </template>
 
 <style lang="scss" scoped></style>
+
+<!--- COLLEGARE PROPS!!! -->

@@ -18,7 +18,7 @@ export default {
     <div class="container-fluid" v-if="store.query !== ''">
         <h5 class="text-white">Results for '{{ store.query }}'</h5>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
-        <MovieItem :movies="store.resultsList" :img="store.MOVIEIMG_URL"/>
+        <MovieItem />
       </div>
     </div>
   </main>

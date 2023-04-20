@@ -4,10 +4,6 @@ import CompleteProfile from './CompleteProfile.vue'
 export default {
   name: "MovieItem",
   emits: ['showMoreInfo'],
-  props: {
-    movies: Array,
-    img: String,
-  },
   components: {
     CompleteProfile
   },
@@ -40,12 +36,12 @@ export default {
 };
 </script>
 <template>
-  <div class="col" v-for="movie in movies" v-show="showItem(movie)">
+  <div class="col" v-for="movie in store.resultsList" v-show="showItem(movie)">
     <div
       class="card my-2"
       @mouseenter="movie.cardOnHover = true"
       @mouseleave="movie.cardOnHover = false"
-      @click="store.performGetInfo(movie.media_type, movie.id), showCompleteProf"
+      @click="store.performGetInfo(movie.media_type, movie.id), movie.showCompleteProf = true"
       >
       <!-- @click="$emit('showMoreInfo', movie.media_type, movie.id)" -->
       <div class="card-img">
@@ -53,7 +49,7 @@ export default {
         <img class="movie_poster" v-if="movie.poster_path === null" />
         <img
           class="movie_poster"
-          :src="img + 'original' + movie.poster_path"
+          :src="store.MOVIEIMG_URL + 'original' + movie.poster_path"
           v-else
         />
       </div>
@@ -89,9 +85,8 @@ export default {
         <div class="overview" v-if="movie.overview">
           <p><strong>Overview:</strong> {{ movie.overview }}</p>
         </div>
-
-        <CompleteProfile v-if="showCompleteProf"/>
       </div>
+      <CompleteProfile v-if="movie.showCompleteProf" :img="store.MOVIEIMG_URL" :movie="movie"/>
     </div>
   </div>
 </template>
