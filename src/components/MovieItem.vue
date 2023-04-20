@@ -65,7 +65,7 @@ export default {
         />
 
         <div class="votation">
-          <span class="vote">Vote: {{ getVoteIn5(movie.vote_average) }}</span>
+          <span class="vote">Vote: </span>
           <font-awesome-icon
             icon="fa-solid fa-star"
             v-for="n in getVoteIn5(movie.vote_average)"
@@ -81,9 +81,4 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.language_flag {
-  width: 30px;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-}
 </style>

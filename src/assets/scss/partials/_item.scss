@@ -1,11 +1,27 @@
-@use './common' as *;
+@use "./common" as *;
 
 .card {
-    border: none;
-    border-radius: 0 !important;
- .movie_poster {
+  border: none;
+  border-radius: 0 !important;
+  position: relative;
+  .movie_poster {
+    height: 100%;
     width: 100%;
-} 
+    object-fit: cover;
+  }
+  .card_body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $transp-dark;
+    height: 100%;
+    width: 100%;
+    color: $lighter;
+    padding: 1rem;
+    .language_flag {
+      width: 30px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+    }
+  }
 }
-
-
