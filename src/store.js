@@ -7,9 +7,6 @@ export const store = reactive({
   MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
   query: null,
   resultsList: [],
-  movieTitle: null,
-  movieOriginalTitle: null,
-  movieLanguage: null,
   movieVote: null,
   performSearchMovie(url) {
     axios

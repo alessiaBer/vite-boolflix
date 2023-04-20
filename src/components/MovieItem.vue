@@ -5,6 +5,11 @@ export default {
         movies: Array,
         img: String
     },
+    data() {
+      return {
+        cardOnHover: false
+      }
+    },
     methods: {
       showItem(movie) {
         if (movie.media_type === 'movie' || movie.media_type === 'tv') {
@@ -28,14 +33,17 @@ export default {
 </script>
 <template>
   <div class="col" v-for="movie in movies" v-show="showItem(movie)">
-    <div class="card">
-      <div class="card-img">
+    <div class="card border-0 my-2" 
+    @mouseenter="movie.cardOnHover = true"
+    @mouseleave="movie.cardOnHover = false">
+      <div class="card-img" v-if="!movie.cardOnHover">
         <!-- TODO immagine alternativa-->
         <img class="movie_poster" v-if="movie.poster_path === null">
         <img class="movie_poster" :src="img + '/original/' + movie.poster_path" v-else>
       </div>
 
-      <div class="movie-title" v-if="movie.media_type === 'movie'">
+      <div class="card_body" v-if="movie.cardOnHover">
+        <div class="movie-title" v-if="movie.media_type === 'movie'">
         <h5 class="title">{{ movie.title }}</h5>
         <h6 class="original_title">{{ movie.original_title }}</h6>
       </div>
@@ -51,6 +59,7 @@ export default {
         <span class="vote">Vote: {{ getVoteIn5(movie.vote_average) }}</span>
           <font-awesome-icon icon="fa-solid fa-star" v-for="n in getVoteIn5(movie.vote_average)"/>
           <font-awesome-icon icon="fa-regular fa-star" v-for="n in getEmptyStar(getVoteIn5(movie.vote_average))"/>
+      </div>
       </div>
       
     </div>
