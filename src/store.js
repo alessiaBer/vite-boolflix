@@ -5,7 +5,7 @@ export const store = reactive({
   MOVIEDB_API:
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
   MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
-  query: null,
+  query: '',
   resultsList: [],
   movieVote: null,
   loading: true,

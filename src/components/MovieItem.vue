@@ -43,7 +43,7 @@ export default {
         <img class="movie_poster" v-if="movie.poster_path === null" />
         <img
           class="movie_poster"
-          :src="img + '/original/' + movie.poster_path"
+          :src="img + 'original' + movie.poster_path"
           v-else
         />
       </div>

@@ -35,7 +35,7 @@ export default {
           />
         </a>
 
-        <SearchBox @search-movie="store.performSearchMovie(joinQuery)" />
+        <SearchBox @search-movie="store.performSearchMovie(joinQuery)"/>
       </div>
     </nav>
   </header>
