@@ -30,7 +30,7 @@ export default {
   <div class="col" v-for="movie in movies" v-show="showItem(movie)">
     <div class="card">
       <div class="card-img">
-        <!-- TODO -->
+        <!-- TODO immagine alternativa-->
         <img class="movie_poster" v-if="movie.poster_path === null">
         <img class="movie_poster" :src="img + '/original/' + movie.poster_path" v-else>
       </div>
@@ -46,6 +46,7 @@ export default {
       </div>
 
       <img class="language_flag" :src="`https://unpkg.com/language-icons/icons/${movie.original_language}.svg`">
+
       <div class="votation">
         <span class="vote">Vote: {{ getVoteIn5(movie.vote_average) }}</span>
           <font-awesome-icon icon="fa-solid fa-star" v-for="n in getVoteIn5(movie.vote_average)"/>

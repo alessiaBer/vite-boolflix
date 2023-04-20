@@ -19,11 +19,26 @@ export default {
 
       return search_url;
     },
-  }
+  },
 };
 </script>
 <template>
-  <SearchBox @search-movie="store.performSearchMovie(joinQuery)" />
+  <header>
+    <nav class="navbar navbar-expand-lg mx-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://logodownload.org/wp-content/uploads/2014/10/netflix-logo-5.png"
+            alt="Netflix"
+            height="30"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+
+        <SearchBox @search-movie="store.performSearchMovie(joinQuery)" />
+      </div>
+    </nav>
+  </header>
 </template>
 
 <style lang="scss" scoped></style>
