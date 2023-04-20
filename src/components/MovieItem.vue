@@ -50,13 +50,13 @@ export default {
 
       <div class="card_body" v-if="movie.cardOnHover">
         <div class="movie-title" v-if="movie.media_type === 'movie'">
-          <h5 class="title">{{ movie.title }}</h5>
-          <h6 class="original_title">{{ movie.original_title }}</h6>
+          <h5 class="title"><strong>Title:</strong> {{ movie.title }}</h5>
+          <h6 class="original_title"><strong>Original title:</strong> {{ movie.original_title }}</h6>
         </div>
 
         <div class="movie-title" v-else-if="movie.media_type === 'tv'">
-          <h5 class="title">{{ movie.name }}</h5>
-          <h6 class="original_title">{{ movie.original_name }}</h6>
+          <h5 class="title"><strong>Title:</strong> {{ movie.name }}</h5>
+          <h6 class="original_title"><strong>Original title:</strong> {{ movie.original_name }}</h6>
         </div>
 
         <img
@@ -64,7 +64,7 @@ export default {
           :src="`https://unpkg.com/language-icons/icons/${movie.original_language}.svg`"
         />
 
-        <div class="votation">
+        <div class="votation d-inline-block">
           <span class="vote">Vote: </span>
           <font-awesome-icon
             icon="fa-solid fa-star"
@@ -74,6 +74,10 @@ export default {
             icon="fa-regular fa-star"
             v-for="n in getEmptyStar(getVoteIn5(movie.vote_average))"
           />
+        </div>
+
+        <div class="overview" v-if="movie.overview">
+          <p><strong>Overview:</strong> {{ movie.overview }}</p>
         </div>
       </div>
     </div>

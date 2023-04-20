@@ -18,10 +18,29 @@
     width: 100%;
     color: $lighter;
     padding: 1rem;
+    overflow-y: auto;
+
+    .title {
+        font-size:0.9rem;
+        font-weight: 400;
+    }
+
+    .original_title {
+        font-size: 0.8rem;
+    }
     .language_flag {
-      width: 30px;
+      width: 25px;
       aspect-ratio: 1 / 1;
       border-radius: 50%;
+    }
+
+    .votation {
+        font-size: 0.7rem;
+    }
+    .overview{
+        p {
+            font-size: 0.7rem;
+        }
     }
   }
 }

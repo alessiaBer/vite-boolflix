@@ -8,6 +8,7 @@ export const store = reactive({
   query: null,
   resultsList: [],
   movieVote: null,
+  loading: true,
   performSearchMovie(url) {
     axios
     .get(url)
@@ -15,6 +16,8 @@ export const store = reactive({
         //console.log(store.resultsList)
         this.resultsList = response.data.results;
         this.movieLanguage = this.resultsList.movieVote;
+
+        this.loading = false;
     })
     .catch(err => {
         console.error(err)
