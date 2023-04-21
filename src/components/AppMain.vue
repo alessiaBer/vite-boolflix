@@ -11,6 +11,9 @@ export default {
       store,
       mainShow: true,
     };
+  },
+  mounted() {
+    store.performGetGenres()
   }
 };
 </script>
@@ -24,7 +27,7 @@ export default {
           :img="store.MOVIEIMG_URL"
           :movie="movie"
           :cast="store.showCast"
-          @click="store.performGetInfo(movie.media_type, movie.id), store.performGetGenres(movie.genre_ids)"
+          @click="store.performGetInfo(movie.media_type, movie.id)"
         />
       </div>
     </div>
