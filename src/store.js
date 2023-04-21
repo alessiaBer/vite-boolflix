@@ -70,12 +70,18 @@ export const store = reactive({
 
         console.log(genresObj)
         console.log(genresObj.name, genresObj.id)
+
+        return genresObj
       }
 
       for (let i = 0; i < movieGenreId.length; i++) {
         const idd = movieGenreId[i]
 
         console.log(idd)
+
+        if (movieGenreId.includes(genresObj.id)) {
+          this.newgenresObj
+        }
       }
     console.log(movieGenreId)
     })

@@ -1,9 +1,12 @@
 @use "./common" as *;
-
+.col {
+  margin-bottom: 1rem;
+}
 .card {
   border: none;
   border-radius: 0 !important;
   position: relative;
+  height: 100%;
   .card-img {
     height: 100%;
    .movie_poster {
@@ -14,7 +17,16 @@
   .alternative {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    background-color: $darker;
+    color: $red;
+    text-transform: uppercase;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    -webkit-text-stroke: 1px $lighter;
+    h5 {
+      font-size: 1.5rem;
+    }
   }
   }
   
