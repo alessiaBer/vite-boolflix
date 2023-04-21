@@ -75,7 +75,7 @@ export default {
           :src="`https://unpkg.com/language-icons/icons/${movie.original_language}.svg`"
         />
 
-        <div class="votation d-inline-block">
+        <div class="votation d-inline-block ps-1">
           <span class="vote">Vote: </span>
           <font-awesome-icon
             icon="fa-solid fa-star"
@@ -91,16 +91,15 @@ export default {
           <p><strong>Overview:</strong> {{ movie.overview }}</p>
         </div>
 
-        <div class="cast" v-if="showCompleteProf && cast !== ['']">
+        <div class="moreInfo" v-if="showCompleteProf && cast !== ['']">
           <p><strong>Cast:</strong> {{ cast.join(', ') }}</p>
-          <!-- <ul>
-            <li v-for=""></li>
-          </ul> -->
+          <p><strong>Genres:</strong>{{ movie.genre_ids }}</p>
         </div>
         <!-- @click="showCompleteProf = true" -->
         <span
           class="d-block show"
           @click="showCompleteProf = true"
+          v-if="!showCompleteProf"
         >
           Complete profile
         </span>

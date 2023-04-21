@@ -6,6 +6,7 @@ export const store = reactive({
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
   MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
   GETINFO_API: "https://api.themoviedb.org/3/",
+  GETGENRES_API: 'https://api.themoviedb.org/3/genre/movie/list',
 /*  GET_CREDITS_API: 'https://api.themoviedb.org/3/movie/{movie-id}?api_key=<<api_key>>', 
    GET_DETAILS_API: 'https://api.themoviedb.org/3/movie/{movie-id}/credits?api_key=<<api_key>>',
   GET_TV_INFO: 'https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key=<<api_key>>'*/
@@ -13,6 +14,7 @@ export const store = reactive({
   /* mediaType: '',
   movieId: null, 
   player: '', */
+  genreList: [],
   entireCast: [],
   showCast: [],
   query: '',
@@ -48,8 +50,32 @@ export const store = reactive({
     })
     .catch(err => {
       console.error(err)
-  });
-
+    });
   this.showCast = []
+  },
+  /**
+   * 
+   * @param {Number} movieGenreId
+   */
+  performGetGenres(movieGenreId) {
+    const genres_url = `${this.GETGENRES_API + this.apiKey}`
+    axios.get(genres_url)
+    .then(response => {
+      this.genreList = response.data.genres
+      /* if(movieGenreIds.includes(genreList[id])) {
+        this.genreIdList.push(genreList.id)
+        console.log(this.genreIdList)
+      } */
+      for (let i = 0; i < this.genreList.length; i++) {
+        const genreObj = this.genreList[i]
+        if(movieGenreId === genreObj.id) {
+          console.log(genreObj)
+        }
+      }
+      
+    })
+    .catch(err => {
+      console.error(err)
+    });
   }
 });

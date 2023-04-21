@@ -24,7 +24,7 @@ export default {
           :img="store.MOVIEIMG_URL"
           :movie="movie"
           :cast="store.showCast"
-          @click="store.performGetInfo(movie.media_type, movie.id)"
+          @click="store.performGetInfo(movie.media_type, movie.id), store.performGetGenres(28)"
         />
       </div>
     </div>
