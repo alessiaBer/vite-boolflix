@@ -4,7 +4,7 @@ import MovieItem from "./MovieItem.vue";
 export default {
   name: "AppMain",
   components: {
-    MovieItem,
+    MovieItem
   },
   data() {
     return {
@@ -31,8 +31,20 @@ export default {
         />
       </div>
     </div>
+    <div class="div" v-else>
+      <div class="container-fluid">
+        <h1>Benvenuto</h1>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
+          <MovieItem 
+          v-for="movie in previewMovies"/>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
+h1 {
+  color: white;
+}
 </style>
