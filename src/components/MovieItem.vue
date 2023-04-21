@@ -92,7 +92,7 @@ export default {
         </div>
 
         <div class="cast" v-if="showCompleteProf && cast !== ['']">
-          <p>{{ cast }}</p>
+          <p><strong>Cast:</strong> {{ cast.join(', ') }}</p>
           <!-- <ul>
             <li v-for=""></li>
           </ul> -->

@@ -44,7 +44,6 @@ export const store = reactive({
       for(let i = 0; i < 5; i++) {
         const player = this.entireCast[i].name;
         this.showCast.push(player);
-        //console.log(this.showCast)
       }
     })
     .catch(err => {

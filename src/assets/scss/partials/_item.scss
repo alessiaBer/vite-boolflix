@@ -42,6 +42,9 @@
             font-size: 0.7rem;
         }
     }
+    .cast {
+      font-size: 0.7rem;
+    }
     .show {
       width: fit-content;
       font-size: 0.75rem;
@@ -49,6 +52,10 @@
       color: $darker;
       background-color: $lighter;
       cursor: pointer;
+      &:hover {
+        background-color: $darker;
+        color: $lighter;
+      }
     }
   }
 }
