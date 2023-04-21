@@ -14,6 +14,7 @@ export const store = reactive({
   /* mediaType: '',
   movieId: null, 
   player: '', */
+  list: [],
   genreList: [],
   entireCast: [],
   showCast: [],
@@ -55,25 +56,31 @@ export const store = reactive({
   },
   /**
    * 
-   * @param {Number} movieGenreId
+   * @param {Array} movieGenreId
    */
   performGetGenres(movieGenreId) {
     const genres_url = `${this.GETGENRES_API + this.apiKey}`
     axios.get(genres_url)
     .then(response => {
       this.genreList = response.data.genres
-      /* if(movieGenreIds.includes(genreList[id])) {
-        this.genreIdList.push(genreList.id)
-        console.log(this.genreIdList)
-      } */
-      for (let i = 0; i < this.genreList.length; i++) {
-        const genreObj = this.genreList[i]
-        if(movieGenreId === genreObj.id) {
-          console.log(genreObj)
-        }
+      console.log(this.genreList)
+    
+     for (let i = 0; i < this.genreList.length; i++) {
+        const genresObj = this.genreList[i]
+
+        console.log(genresObj)
+        console.log(genresObj.name, genresObj.id)
       }
-      
+
+      for (let i = 0; i < movieGenreId.length; i++) {
+        const idd = movieGenreId[i]
+
+        console.log(idd)
+      }
+    console.log(movieGenreId)
     })
+
+
     .catch(err => {
       console.error(err)
     });

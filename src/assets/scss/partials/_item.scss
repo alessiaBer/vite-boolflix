@@ -4,11 +4,20 @@
   border: none;
   border-radius: 0 !important;
   position: relative;
-  .movie_poster {
+  .card-img {
+    height: 100%;
+   .movie_poster {
     height: 100%;
     width: 100%;
     object-fit: cover;
   }
+  .alternative {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  }
+  
   .card_body {
     position: absolute;
     top: 0;

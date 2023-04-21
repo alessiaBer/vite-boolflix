@@ -47,7 +47,10 @@ export default {
       <!-- @click="$emit('showMoreInfo', movie.media_type, movie.id)" -->
       <div class="card-img">
         <!-- TODO immagine alternativa-->
-        <img class="movie_poster" v-if="movie.poster_path === null" />
+        <div class="alternative" v-if="movie.poster_path === null">
+          <h5 v-if="movie.media_type === 'movie'">{{ movie.title }}</h5>
+          <h5 v-else-if="movie.media_type === 'tv'">{{ movie.name }} </h5>
+        </div>
         <img
           class="movie_poster"
           :src="img + 'original' + movie.poster_path"
