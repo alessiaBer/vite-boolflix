@@ -13,11 +13,13 @@ export const store = reactive({
   /* mediaType: '',
   movieId: null, 
   player: '', */
-  cast: [],
+  entireCast: [],
+  showCast: [],
   query: '',
   resultsList: [],
   movieVote: null,
   loading: true,
+  activeProfile: null,
   performSearchMovie(url) {
     axios
     .get(url)
@@ -36,11 +38,19 @@ export const store = reactive({
     const credits_url = `${this.GETINFO_API + mediaType }/${ movieId }/credits${this.apiKey}`
     axios.get(credits_url)
     .then((response) => {
-      this.cast = response.data.cast
-      console.log(this.cast)
+      this.entireCast = response.data.cast
+      /* console.log(this.cast) */
+      /* for loop push in array 5 players */
+      for(let i = 0; i < 5; i++) {
+        const player = this.entireCast[i].name;
+        this.showCast.push(player);
+        //console.log(this.showCast)
+      }
     })
     .catch(err => {
       console.error(err)
   });
+
+  this.showCast = []
   }
 });

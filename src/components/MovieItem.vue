@@ -1,17 +1,19 @@
 <script>
-import {store} from '../store'
-import CompleteProfile from './CompleteProfile.vue'
+import CompleteProfile from "./CompleteProfile.vue";
 export default {
   name: "MovieItem",
-  emits: ['showMoreInfo'],
+  props: {
+    movie: Object,
+    img: String,
+    cast: Array,
+  },
   components: {
-    CompleteProfile
+    CompleteProfile,
   },
   data() {
     return {
-      store,
       cardOnHover: false,
-      showCompleteProf: false
+      showCompleteProf: false,
     };
   },
   methods: {
@@ -36,20 +38,19 @@ export default {
 };
 </script>
 <template>
-  <div class="col" v-for="movie in store.resultsList" v-show="showItem(movie)">
+  <div class="col" v-show="showItem(movie)">
     <div
       class="card my-2"
       @mouseenter="movie.cardOnHover = true"
       @mouseleave="movie.cardOnHover = false"
-      @click="store.performGetInfo(movie.media_type, movie.id), movie.showCompleteProf = true"
-      >
+    >
       <!-- @click="$emit('showMoreInfo', movie.media_type, movie.id)" -->
       <div class="card-img">
         <!-- TODO immagine alternativa-->
         <img class="movie_poster" v-if="movie.poster_path === null" />
         <img
           class="movie_poster"
-          :src="store.MOVIEIMG_URL + 'original' + movie.poster_path"
+          :src="img + 'original' + movie.poster_path"
           v-else
         />
       </div>
@@ -57,12 +58,16 @@ export default {
       <div class="card_body" v-if="movie.cardOnHover">
         <div class="movie-title" v-if="movie.media_type === 'movie'">
           <h5 class="title"><strong>Title:</strong> {{ movie.title }}</h5>
-          <h6 class="original_title"><strong>Original title:</strong> {{ movie.original_title }}</h6>
+          <h6 class="original_title">
+            <strong>Original title:</strong> {{ movie.original_title }}
+          </h6>
         </div>
 
         <div class="movie-title" v-else-if="movie.media_type === 'tv'">
           <h5 class="title"><strong>Title:</strong> {{ movie.name }}</h5>
-          <h6 class="original_title"><strong>Original title:</strong> {{ movie.original_name }}</h6>
+          <h6 class="original_title">
+            <strong>Original title:</strong> {{ movie.original_name }}
+          </h6>
         </div>
 
         <img
@@ -85,11 +90,28 @@ export default {
         <div class="overview" v-if="movie.overview">
           <p><strong>Overview:</strong> {{ movie.overview }}</p>
         </div>
+
+        <div class="cast" v-if="showCompleteProf && cast !== ['']">
+          <p>{{ cast }}</p>
+          <!-- <ul>
+            <li v-for=""></li>
+          </ul> -->
+        </div>
+        <!-- @click="showCompleteProf = true" -->
+        <span
+          class="d-block show"
+          @click="showCompleteProf = true"
+        >
+          Complete profile
+        </span>
       </div>
-      <CompleteProfile v-if="movie.showCompleteProf" :img="store.MOVIEIMG_URL" :movie="movie"/>
+      <!--  <CompleteProfile
+        :img="img"
+        :movie="movie"
+        v-if="showCompleteProf"
+      /> -->
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

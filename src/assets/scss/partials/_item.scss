@@ -42,5 +42,13 @@
             font-size: 0.7rem;
         }
     }
+    .show {
+      width: fit-content;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: $darker;
+      background-color: $lighter;
+      cursor: pointer;
+    }
   }
 }
