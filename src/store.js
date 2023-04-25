@@ -20,13 +20,13 @@ export const store = reactive({
     movieTrends: null
   },
   entireCast: [],
-  showCast: [],
+  showedCast: [],
   query: "",
   resultsList: [],
   movieVote: null,
   loading: true,
   genresList: [],
-  list_of_movie_genre: [],
+  itemGenresList: [],
   /**
    * function to get movies/series
    * @param {String} url 
@@ -55,21 +55,31 @@ export const store = reactive({
     const credits_url = `${this.CREDITS_API + mediaType}/${movieId}/credits${
       this.apiKey
     }`;
+    const detailsUrl = `${this.CREDITS_API + mediaType}/${movieId + this.apiKey
+    }`
     axios
       .get(credits_url)
       .then((response) => {
         this.entireCast = response.data.cast;
         for (let i = 0; i < 5; i++) {
           const player = this.entireCast[i].name;
-          this.showCast.push(player);
+          this.showedCast.push(player);
         }
       })
       .catch((err) => {
         console.error(err);
       });
-    this.showCast = [];
+    axios
+      .get(detailsUrl)
+      .then((response) => {
+        const list_of_movie_genre = response.data.genres
+        for (let i = 0; i < list_of_movie_genre.length; i++) {
+          this.itemGenresList.push(list_of_movie_genre[i].name.valueOf())
+        }
+      })
+    this.showedCast = [];
+    this.itemGenresList = [];
   },
-
   /** functions for multiple concurrent requests
   * requesting movies genres list and tv genres list
   */
@@ -93,11 +103,12 @@ export const store = reactive({
       console.error(err);
     })
   }, */
-  performGetGenres(movieGen) {
+
+  /* performGetGenres(movieGen) {
     axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=892e430dec807d965a1a1412c9102c0a')
     .then((response) => {
       this.genresList = response.data.genres
-      console.log(this.genresList)
+      //console.log(this.genresList)
       for (let i = 0; i < this.genresList.length; i++) {
         const single_genre = this.genresList[i]
 
@@ -106,8 +117,9 @@ export const store = reactive({
         }
       } 
     })
+    this.list_of_movie_genre = []
   },
-
+ */
   getTvTrendings() {
     const tvTrends = `${this.TRENDINGS_API}tv/week${this.apiKey}`
     return axios.get(tvTrends)

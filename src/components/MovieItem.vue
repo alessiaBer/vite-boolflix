@@ -97,7 +97,7 @@ export default {
 
         <div class="moreInfo" v-if="showCompleteProf && cast !== ['']">
           <p><strong>Cast:</strong> {{ cast.join(', ') }}</p>
-          <p><strong>Genres:</strong> {{ genres.join(', ') }}</p>
+          <p><strong>Genres:</strong> {{ genres.join(', ') }}</p> 
         </div>
         <!-- @click="showCompleteProf = true" -->
         <span

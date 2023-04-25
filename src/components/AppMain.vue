@@ -28,9 +28,9 @@ export default {
           v-for="(movie, index) in store.resultsList"
           :img="store.MOVIEIMG_URL"
           :movie="movie"
-          :cast="store.showCast"
-          :genres="store.list_of_movie_genre"
-          @click="store.performGetInfo(movie.media_type, movie.id), store.performGetGenres(movie.genre_ids)"
+          :cast="store.showedCast"
+          :genres="store.itemGenresList"
+          @click="store.performGetInfo(movie.media_type, movie.id)"
         />
       </div>
     </div>
