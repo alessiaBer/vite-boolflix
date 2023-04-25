@@ -6,6 +6,7 @@ export default {
     movie: Object,
     img: String,
     cast: Array,
+    genres: Array
   },
   components: {
     CompleteProfile,
@@ -96,7 +97,7 @@ export default {
 
         <div class="moreInfo" v-if="showCompleteProf && cast !== ['']">
           <p><strong>Cast:</strong> {{ cast.join(', ') }}</p>
-          <p><strong>Genres:</strong>{{ movie.genre_ids }}</p>
+          <p><strong>Genres:</strong> {{ genres.join(', ') }}</p>
         </div>
         <!-- @click="showCompleteProf = true" -->
         <span

@@ -5,13 +5,19 @@ export const store = reactive({
   MOVIEDB_API:
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
   MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
+  PREVIEW_IMG: "https://image.tmdb.org/t/p/w300",
   CREDITS_API: "https://api.themoviedb.org/3/",
   GENRES_MOVIE: "https://api.themoviedb.org/3/genre/movie/list",
   GENRES_TV: "https://api.themoviedb.org/3/genre/tv/list",
+  TRENDINGS_API: "https://api.themoviedb.org/3/trending/",
   apiKey: "?api_key=892e430dec807d965a1a1412c9102c0a&",
-  genresList: {
+  /* genresList: {
     tvGenres: null,
     moviesGenres: null
+  }, */
+  trendingsList: {
+    tvTrends: null,
+    movieTrends: null
   },
   entireCast: [],
   showCast: [],
@@ -19,7 +25,8 @@ export const store = reactive({
   resultsList: [],
   movieVote: null,
   loading: true,
-
+  genresList: [],
+  list_of_movie_genre: [],
   /**
    * function to get movies/series
    * @param {String} url 
@@ -66,7 +73,7 @@ export const store = reactive({
   /** functions for multiple concurrent requests
   * requesting movies genres list and tv genres list
   */
-  getTvGenres() {
+  /* getTvGenres() {
     const tvGenresUrl = `${this.GENRES_TV + this.apiKey}`;
     return axios.get(tvGenresUrl)
   },
@@ -82,5 +89,43 @@ export const store = reactive({
 
       console.log(this.genresList)
     })
+    .catch((err) => {
+      console.error(err);
+    })
+  }, */
+  performGetGenres(movieGen) {
+    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=892e430dec807d965a1a1412c9102c0a')
+    .then((response) => {
+      this.genresList = response.data.genres
+      console.log(this.genresList)
+      for (let i = 0; i < this.genresList.length; i++) {
+        const single_genre = this.genresList[i]
+
+        if(movieGen.includes(single_genre.id.valueOf())) {
+          this.list_of_movie_genre.push(single_genre.name.valueOf())
+        }
+      } 
+    })
   },
+
+  getTvTrendings() {
+    const tvTrends = `${this.TRENDINGS_API}tv/week${this.apiKey}`
+    return axios.get(tvTrends)
+  },
+  getMovieTrendings() {
+    const movieTrends = `${this.TRENDINGS_API}movie/week${this.apiKey}`
+    return axios.get(movieTrends)
+  },
+  performTrendings() {
+    Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
+    .then(([tv, movie]) => {
+      this.trendingsList.tvTrends = tv.data
+      this.trendingsList.movieTrends = movie.data
+
+      console.log(this.trendingsList)
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
 });

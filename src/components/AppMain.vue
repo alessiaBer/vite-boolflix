@@ -1,10 +1,12 @@
 <script>
 import { store } from "../store";
 import MovieItem from "./MovieItem.vue";
+import PreviewItem from "./PreviewItem.vue"
 export default {
   name: "AppMain",
   components: {
-    MovieItem
+    MovieItem,
+    PreviewItem
   },
   data() {
     return {
@@ -13,7 +15,7 @@ export default {
     };
   },
   mounted() {
-    store.performGetGenres()
+    store.performTrendings()
   }
 };
 </script>
@@ -27,17 +29,28 @@ export default {
           :img="store.MOVIEIMG_URL"
           :movie="movie"
           :cast="store.showCast"
-          @click="store.performGetInfo(movie.media_type, movie.id)"
+          :genres="store.list_of_movie_genre"
+          @click="store.performGetInfo(movie.media_type, movie.id), store.performGetGenres(movie.genre_ids)"
         />
       </div>
     </div>
     <div class="div" v-else>
       <div class="container-fluid">
-        <h1>Benvenuto</h1>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
-          <MovieItem 
-          v-for="movie in previewMovies"/>
+        <h1>Welcome!</h1>
+        <h4 class="text-white">Trendings of the week</h4>
+        <h6 class="text-white">Movies</h6>
+        <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
+          <PreviewItem 
+          v-for="movie in store.trendingsList.movieTrends"
+          :img="store.MOVIEIMG_URL"
+          :movie="movie"/>
         </div>
+        <h6 class="text-white">Series</h6>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
+          <PreviewItem v-for="item in store.trendingsList.tvTrends"
+          :img="store.MOVIEIMG_URL"
+          :movie="movie"/>
+        </div> -->
       </div>
     </div>
   </main>
