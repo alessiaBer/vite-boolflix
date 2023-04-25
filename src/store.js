@@ -2,16 +2,13 @@ import { reactive } from "vue";
 import axios from "axios";
 
 export const store = reactive({
-  MOVIEDB_API:
+  MOVIEDB_API: "https://api.themoviedb.org/3/",
+  MULTI_API:
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
-  MOVIEIMG_URL: "https://image.tmdb.org/t/p/",
-  PREVIEW_IMG: "https://image.tmdb.org/t/p/w300",
-  CREDITS_API: "https://api.themoviedb.org/3/",
-  GENRES_MOVIE: "https://api.themoviedb.org/3/genre/movie/list",
-  GENRES_TV: "https://api.themoviedb.org/3/genre/tv/list",
-  TRENDINGS_API: "https://api.themoviedb.org/3/trending/",
+  MOVIEDB_IMG: "https://image.tmdb.org/t/p/",
   apiKey: "?api_key=892e430dec807d965a1a1412c9102c0a&",
-  /* genresList: {
+  /*** prove multiple requests
+   * genresList: {
     tvGenres: null,
     moviesGenres: null
   }, */
@@ -47,15 +44,15 @@ export const store = reactive({
   },
 
   /**
-   * function to get the cast of the movie
-   * @param {String} mediaType 
-   * @param {Number} movieId 
+   * function to get cast and genres of the item 
+   * @param {String} mediaType if the item is a movie or a series
+   * @param {Number} itemId the id of the item in moviedb
    */
-  performGetInfo(mediaType, movieId) {
-    const credits_url = `${this.CREDITS_API + mediaType}/${movieId}/credits${
+  performGetInfo(mediaType, itemId) {
+    const credits_url = `${this.MOVIEDB_API + mediaType}/${itemId}/credits${
       this.apiKey
     }`;
-    const detailsUrl = `${this.CREDITS_API + mediaType}/${movieId + this.apiKey
+    const detailsUrl = `${this.MOVIEDB_API + mediaType}/${itemId + this.apiKey
     }`
     axios
       .get(credits_url)
@@ -72,14 +69,40 @@ export const store = reactive({
     axios
       .get(detailsUrl)
       .then((response) => {
-        const list_of_movie_genre = response.data.genres
-        for (let i = 0; i < list_of_movie_genre.length; i++) {
-          this.itemGenresList.push(list_of_movie_genre[i].name.valueOf())
+        const genresObject = response.data.genres
+        for (let i = 0; i < genresObject.length; i++) {
+          this.itemGenresList.push(genresObject[i].name.valueOf())
         }
       })
     this.showedCast = [];
     this.itemGenresList = [];
   },
+
+  getTvTrendings() {
+    const tvTrends = `${this.MOVIEDB_API}trending/tv/week${this.apiKey}`
+    return axios.get(tvTrends)
+  },
+  getMovieTrendings() {
+    const movieTrends = `${this.MOVIEDB_API}trending/movie/week${this.apiKey}`
+    return axios.get(movieTrends)
+  },
+  performTrendings() {
+    Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
+    .then(([tv, movie]) => {
+      this.trendingsList.tvTrends = tv.data
+      this.trendingsList.movieTrends = movie.data
+
+      //console.log(this.trendingsList)
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+});
+
+
+
+/****prove di multiple requests e genres request */
   /** functions for multiple concurrent requests
   * requesting movies genres list and tv genres list
   */
@@ -120,24 +143,3 @@ export const store = reactive({
     this.list_of_movie_genre = []
   },
  */
-  getTvTrendings() {
-    const tvTrends = `${this.TRENDINGS_API}tv/week${this.apiKey}`
-    return axios.get(tvTrends)
-  },
-  getMovieTrendings() {
-    const movieTrends = `${this.TRENDINGS_API}movie/week${this.apiKey}`
-    return axios.get(movieTrends)
-  },
-  performTrendings() {
-    Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
-    .then(([tv, movie]) => {
-      this.trendingsList.tvTrends = tv.data
-      this.trendingsList.movieTrends = movie.data
-
-      console.log(this.trendingsList)
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  }
-});

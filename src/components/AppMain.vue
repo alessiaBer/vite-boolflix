@@ -26,7 +26,7 @@ export default {
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
         <MovieItem
           v-for="(movie, index) in store.resultsList"
-          :img="store.MOVIEIMG_URL"
+          :img="store.MOVIEDB_IMG"
           :movie="movie"
           :cast="store.showedCast"
           :genres="store.itemGenresList"

@@ -15,7 +15,7 @@ export default {
   computed: {
     joinQuery() {
       const join_query = store.query.split(" ").join("+");
-      let search_url = store.MOVIEDB_API + `${join_query}`;
+      let search_url = store.MULTI_API + `${join_query}`;
 
       return search_url;
     },
