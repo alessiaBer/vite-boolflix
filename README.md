@@ -83,3 +83,23 @@ Flags API: 'https://flagsapi.com/#themes'
 
 MovieDB: 'https://developers.themoviedb.org/3/search/search-tv-shows'
 
+the other way to match two array: 
+
+/* 
+ performGetGenres(movieGen) {
+    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=892e430dec807d965a1a1412c9102c0a')
+    .then((response) => {
+      this.genresList = response.data.genres
+      //console.log(this.genresList)
+      for (let i = 0; i < this.genresList.length; i++) {
+        const single_genre = this.genresList[i]
+
+        if(movieGen.includes(single_genre.id.valueOf())) {
+          this.list_of_movie_genre.push(single_genre.name.valueOf())
+        }
+      } 
+    })
+    this.list_of_movie_genre = []
+  },
+ */
+
