@@ -1,5 +1,4 @@
 <script>
-import CompleteProfile from "./CompleteProfile.vue";
 export default {
   name: "MovieItem",
   props: {
@@ -7,9 +6,6 @@ export default {
     img: String,
     cast: Array,
     genres: Array
-  },
-  components: {
-    CompleteProfile,
   },
   data() {
     return {
@@ -43,11 +39,8 @@ export default {
     <div
       class="card my-2"
       @mouseenter="movie.cardOnHover = true"
-      @mouseleave="movie.cardOnHover = false"
-    >
-      <!-- @click="$emit('showMoreInfo', movie.media_type, movie.id)" -->
+      @mouseleave="movie.cardOnHover = false">
       <div class="card-img">
-        <!-- TODO immagine alternativa-->
         <div class="alternative" v-if="movie.poster_path === null">
           <h5 v-if="movie.media_type === 'movie'">{{ movie.title }}</h5>
           <h5 v-else-if="movie.media_type === 'tv'">{{ movie.name }} </h5>
@@ -108,11 +101,6 @@ export default {
           Complete profile
         </span>
       </div>
-      <!--  <CompleteProfile
-        :img="img"
-        :movie="movie"
-        v-if="showCompleteProf"
-      /> -->
     </div>
   </div>
 </template>

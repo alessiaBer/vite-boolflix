@@ -1,12 +1,12 @@
 <script>
 import { store } from "../store";
+import SelectBox from "./SelectBox.vue";
 import MovieItem from "./MovieItem.vue";
-import PreviewItem from "./PreviewItem.vue"
 export default {
   name: "AppMain",
   components: {
-    MovieItem,
-    PreviewItem
+    SelectBox,
+    MovieItem
   },
   data() {
     return {
@@ -14,15 +14,25 @@ export default {
       mainShow: true,
     };
   },
+  methods: {
+    performMediaChoice() {
+      const url = `${store.MOVIEDB_API}search/${store.selectedType + store.apiKey}query=${store.query.split(" ").join("+")}`
+      store.performSearchMovie(url)
+    },
+  },
   mounted() {
-    store.performTrendings()
-  }
+    store.performTrendings();
+    store.performGetGenres();
+  },
 };
 </script>
 <template>
   <main v-if="mainShow">
     <div class="container-fluid" v-if="store.query !== ''">
       <h5 class="text-white">Results for '{{ store.query }}'</h5>
+
+      <SelectBox @chooseMedia="performMediaChoice()"/>
+
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
         <MovieItem
           v-for="(movie, index) in store.resultsList"
@@ -34,23 +44,12 @@ export default {
         />
       </div>
     </div>
+
     <div class="div" v-else>
       <div class="container-fluid">
         <h1>Welcome!</h1>
         <h4 class="text-white">Trendings of the week</h4>
         <h6 class="text-white">Movies</h6>
-        <!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
-          <PreviewItem 
-          v-for="movie in store.trendingsList.movieTrends"
-          :img="store.MOVIEIMG_URL"
-          :movie="movie"/>
-        </div>
-        <h6 class="text-white">Series</h6>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-xl-6">
-          <PreviewItem v-for="item in store.trendingsList.tvTrends"
-          :img="store.MOVIEIMG_URL"
-          :movie="movie"/>
-        </div> -->
       </div>
     </div>
   </main>
