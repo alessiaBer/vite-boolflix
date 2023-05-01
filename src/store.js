@@ -7,11 +7,10 @@ export const store = reactive({
     "https://api.themoviedb.org/3/search/multi?api_key=892e430dec807d965a1a1412c9102c0a&query=",
   MOVIEDB_IMG: "https://image.tmdb.org/t/p/",
   apiKey: "?api_key=892e430dec807d965a1a1412c9102c0a&",
-  /*** prove multiple requests
-   * genresList: {
+  genresList: {
     tvGenres: null,
     moviesGenres: null
-  }, */
+  },
   trendingsList: {
     tvTrends: null,
     movieTrends: null
@@ -24,6 +23,8 @@ export const store = reactive({
   loading: true,
   genresList: [],
   itemGenresList: [],
+  selectedType: null,
+  selectedGenre: null,
   /**
    * function to get movies/series
    * @param {String} url 
@@ -78,40 +79,16 @@ export const store = reactive({
     this.itemGenresList = [];
   },
 
-  getTvTrendings() {
-    const tvTrends = `${this.MOVIEDB_API}trending/tv/week${this.apiKey}`
-    return axios.get(tvTrends)
-  },
-  getMovieTrendings() {
-    const movieTrends = `${this.MOVIEDB_API}trending/movie/week${this.apiKey}`
-    return axios.get(movieTrends)
-  },
-  performTrendings() {
-    Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
-    .then(([tv, movie]) => {
-      this.trendingsList.tvTrends = tv.data
-      this.trendingsList.movieTrends = movie.data
 
-      //console.log(this.trendingsList)
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-  }
-});
-
-
-
-/****prove di multiple requests e genres request */
   /** functions for multiple concurrent requests
   * requesting movies genres list and tv genres list
   */
-  /* getTvGenres() {
-    const tvGenresUrl = `${this.GENRES_TV + this.apiKey}`;
+  getTvGenres() {
+    const tvGenresUrl = `${this.MOVIEDB_API}genre/tv/list${this.apiKey}`;
     return axios.get(tvGenresUrl)
   },
   getMovieGenres() {
-    const movieGenresUrl = `${this.GENRES_MOVIE + this.apiKey}`;
+    const movieGenresUrl = `${this.MOVIEDB_API}genre/movie/list${this.apiKey}`;
     return axios.get(movieGenresUrl)
   },
   performGetGenres() {
@@ -125,21 +102,25 @@ export const store = reactive({
     .catch((err) => {
       console.error(err);
     })
-  }, */
-
-  /* performGetGenres(movieGen) {
-    axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=892e430dec807d965a1a1412c9102c0a')
-    .then((response) => {
-      this.genresList = response.data.genres
-      //console.log(this.genresList)
-      for (let i = 0; i < this.genresList.length; i++) {
-        const single_genre = this.genresList[i]
-
-        if(movieGen.includes(single_genre.id.valueOf())) {
-          this.list_of_movie_genre.push(single_genre.name.valueOf())
-        }
-      } 
-    })
-    this.list_of_movie_genre = []
   },
- */
+
+  getTvTrendings() {
+    const tvTrends = `${this.MOVIEDB_API}trending/tv/week${this.apiKey}`
+    return axios.get(tvTrends)
+  },
+  getMovieTrendings() {
+    const movieTrends = `${this.MOVIEDB_API}trending/movie/week${this.apiKey}`
+    return axios.get(movieTrends)
+  },
+  performTrendings() {
+    Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
+    .then(([tv, movie]) => {
+      this.trendingsList.tvTrends = tv.data
+      this.trendingsList.movieTrends = movie.data
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+});
+
