@@ -12,8 +12,8 @@ export const store = reactive({
     moviesGenres: null
   },
   trendingsList: {
-    tvTrends: null,
-    movieTrends: null
+    Series: null,
+    Movies: null
   },
   entireCast: [],
   showedCast: [],
@@ -37,6 +37,8 @@ export const store = reactive({
         this.resultsList = response.data.results;
         /* this.mediaType = response.data.results.media_type
         this.movieId = response.data.results.id; */
+        console.log(url)
+        console.log(this.resultsList)
         this.loading = false;
       })
       .catch((err) => {
@@ -115,8 +117,10 @@ export const store = reactive({
   performTrendings() {
     Promise.all([this.getTvTrendings(), this.getMovieTrendings()])
     .then(([tv, movie]) => {
-      this.trendingsList.tvTrends = tv.data
-      this.trendingsList.movieTrends = movie.data
+      this.trendingsList.Series = tv.data
+      this.trendingsList.Movies = movie.data
+      
+      console.log(this.trendingsList)
     })
     .catch((err) => {
       console.error(err);

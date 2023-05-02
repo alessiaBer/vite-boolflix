@@ -20,7 +20,6 @@ export default {
       v-if="!showSearchBox"
       @click="showSearchBox = true"
     />
-    <!--TODO CLICK-OUTSIDE-->
     <div class="input-group" v-else @focusout="showSearchBox = false">
       <label
         class="input-group-text border-0 bg-transparent"
